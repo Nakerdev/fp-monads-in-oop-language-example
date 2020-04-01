@@ -1545,6 +1545,19 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "Examples/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "LanguageExt.Core": "3.4.13"
+        },
+        "compile": {
+          "bin/placeholder/Examples.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Examples.dll": {}
+        }
       }
     }
   },
@@ -5660,10 +5673,16 @@
         "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "Examples/1.0.0": {
+      "type": "project",
+      "path": "../Examples/Examples.csproj",
+      "msbuildProject": "../Examples/Examples.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
+      "Examples >= 1.0.0",
       "FluentAssertions >= 5.10.3",
       "LanguageExt.Core >= 3.4.13",
       "Microsoft.NET.Test.Sdk >= 16.2.0",
@@ -5698,7 +5717,11 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/naker90/Desktop/Projects/LanguageExtExamples/Examples/Examples.csproj": {
+              "projectPath": "/home/naker90/Desktop/Projects/LanguageExtExamples/Examples/Examples.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
