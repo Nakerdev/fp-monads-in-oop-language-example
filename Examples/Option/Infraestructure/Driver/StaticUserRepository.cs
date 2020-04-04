@@ -15,14 +15,14 @@ namespace Examples.Option.Infraestructure.Driver
             {
                 new Driver
                 {
-                    Email = "maria@email.com",
+                    PersonalIdentificationCode = "00000000X",
                     FirstName = "Maria",
                     LastName = "González",
                     Telephone = "652365269"
                 },
                 new Driver
                 {
-                    Email = "alvaro@email.com",
+                    PersonalIdentificationCode = "00000001X",
                     FirstName = "Alvaro",
                     LastName = "González",
                     Telephone = null
@@ -30,9 +30,10 @@ namespace Examples.Option.Infraestructure.Driver
             };
         }
 
-        public Option<Domain.Driver.Driver> SearchBy(string email)
+        public Option<Domain.Driver.Driver> SearchBy(string personalIdentificationCode)
         {
-            var foundUser = users.FirstOrDefault(x => x.Email == email);
+            var foundUser = users
+                .FirstOrDefault(x => x.PersonalIdentificationCode == personalIdentificationCode);
             if(foundUser == null) 
             {
                 return Prelude.None;
@@ -45,7 +46,7 @@ namespace Examples.Option.Infraestructure.Driver
         {
             return new Driver
             {
-                Email = persistanceState.Email,
+                PersonalIdentificationCode = persistanceState.PersonalIdentificationCode,
                 FirstName = persistanceState.FirstName,
                 LastName = persistanceState.LastName,
                 Telephone = persistanceState.Telephone
@@ -55,7 +56,7 @@ namespace Examples.Option.Infraestructure.Driver
         private Domain.Driver.Driver BuildUserFrom(Driver persistenceModel)
         {
             return new Domain.Driver.Driver(
-                email: persistenceModel.Email,
+                personalIdentificationCode: persistenceModel.PersonalIdentificationCode,
                 firstName: persistenceModel.FirstName,
                 lastName: persistenceModel.LastName,
                 telephone: persistenceModel.Telephone);

@@ -4,23 +4,23 @@ namespace Examples.Option.Domain.Driver
 {
     public sealed class Driver
     {
-        public string Email { get; }
+        public string PersonalIdentificationCode { get; }
         public string FirstName { get; }
         public string LastName { get; }
         public Option<string> Telephone { get; }
         public PersistanceState State => new PersistanceState(
-            email: Email,
+            personalIdentificationCode: PersonalIdentificationCode,
             firstName: FirstName,
             lastName: LastName,
             telephone: Telephone.IfNoneUnsafe(() => null));
 
         public Driver(
-            string email,
+            string personalIdentificationCode,
             string firstName,
             string lastName,
             Option<string> telephone)
         {
-            Email = email;
+            PersonalIdentificationCode = personalIdentificationCode;
             FirstName = firstName;
             LastName = lastName;
             Telephone = telephone;
@@ -28,7 +28,7 @@ namespace Examples.Option.Domain.Driver
 
         public Driver(PersistanceState state)
         {
-            Email = state.Email;
+            PersonalIdentificationCode = state.PersonalIdentificationCode;
             FirstName = state.FirstName;
             LastName = state.LastName;
             Telephone = state.Telephone;
@@ -36,18 +36,18 @@ namespace Examples.Option.Domain.Driver
 
         public sealed class PersistanceState
         {
-            public string Email { get; }
+            public string PersonalIdentificationCode { get; }
             public string FirstName { get; }
             public string LastName { get; }
             public string Telephone { get; }
 
             public PersistanceState(
-                string email,
+                string personalIdentificationCode,
                 string firstName,
                 string lastName,
                 string telephone)
             {
-                Email = email;
+                PersonalIdentificationCode = personalIdentificationCode;
                 FirstName = firstName;
                 LastName = lastName;
                 Telephone = telephone;
