@@ -5,11 +5,11 @@ using LanguageExt;
 
 namespace Examples.Option.Infraestructure.Driver
 {
-    public class StaticUserRepository : DriverRepository
+    public class StaticDriverRepository : DriverRepository
     {
         private List<Driver> users;
 
-        public StaticUserRepository()
+        public StaticDriverRepository()
         {
             users = new List<Driver>
             {
