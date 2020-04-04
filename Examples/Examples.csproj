@@ -12,6 +12,7 @@
     <Folder Include="Option\Domain\" />
     <Folder Include="Option\Infraestructure\" />
     <Folder Include="Option\Infraestructure\User\" />
+    <Folder Include="Option\Domain\User\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Class1.cs" />

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Examples.Option.Domain;
+using Examples.Option.Domain.User;
 using LanguageExt;
 
 namespace Examples.Option.Infraestructure.User
@@ -30,14 +30,14 @@ namespace Examples.Option.Infraestructure.User
             };
         }
 
-        public void Create(Domain.User user)
+        public void Create(Domain.User.User user)
         {
             var userState = user.State;
             var persistenceModel = BuildPersistenceModelFrom(userState);
             users.Add(persistenceModel);
         }
 
-        public Option<Domain.User> SearchBy(string email)
+        public Option<Domain.User.User> SearchBy(string email)
         {
             var foundUser = users.FirstOrDefault(x => x.Email == email);
             if(foundUser == null) 
@@ -48,7 +48,7 @@ namespace Examples.Option.Infraestructure.User
         }
 
         private UserPersistenceModel BuildPersistenceModelFrom(
-            Domain.User.PersistanceState persistanceState)
+            Domain.User.User.PersistanceState persistanceState)
         {
             return new UserPersistenceModel
             {
@@ -59,9 +59,9 @@ namespace Examples.Option.Infraestructure.User
             };
         }
 
-        private Domain.User BuildUserFrom(UserPersistenceModel persistenceModel)
+        private Domain.User.User BuildUserFrom(UserPersistenceModel persistenceModel)
         {
-            return new Domain.User(
+            return new Domain.User.User(
                 email: persistenceModel.Email,
                 firstName: persistenceModel.FirstName,
                 lastName: persistenceModel.LastName,
