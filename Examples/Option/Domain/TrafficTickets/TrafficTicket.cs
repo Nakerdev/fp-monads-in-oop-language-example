@@ -4,11 +4,6 @@
     {
         public string Id { get; }
         public double Ammount { get; }
-        public Driver Driver { get; }
-    }
-
-    public sealed class Driver
-    {
-        public string PersonalIndetificationCode { get; }
+        public string DriverPersonalIndentificationCode { get; }
     }
 }

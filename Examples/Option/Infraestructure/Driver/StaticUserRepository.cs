@@ -41,18 +41,6 @@ namespace Examples.Option.Infraestructure.Driver
             return BuildUserFrom(foundUser);
         }
 
-        private Driver BuildPersistenceModelFrom(
-            Domain.Driver.Driver.PersistanceState persistanceState)
-        {
-            return new Driver
-            {
-                PersonalIdentificationCode = persistanceState.PersonalIdentificationCode,
-                FirstName = persistanceState.FirstName,
-                LastName = persistanceState.LastName,
-                Telephone = persistanceState.Telephone
-            };
-        }
-
         private Domain.Driver.Driver BuildUserFrom(Driver persistenceModel)
         {
             return new Domain.Driver.Driver(
