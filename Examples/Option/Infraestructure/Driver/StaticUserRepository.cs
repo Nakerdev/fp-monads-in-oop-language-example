@@ -1,26 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Examples.Option.Domain.User;
+using Examples.Option.Domain.Driver;
 using LanguageExt;
 
-namespace Examples.Option.Infraestructure.User
+namespace Examples.Option.Infraestructure.Driver
 {
-    public class StaticUserRepository : UserRepository
+    public class StaticUserRepository : DriverRepository
     {
-        private List<UserPersistenceModel> users;
+        private List<Driver> users;
 
         public StaticUserRepository()
         {
-            users = new List<UserPersistenceModel>
+            users = new List<Driver>
             {
-                new UserPersistenceModel
+                new Driver
                 {
                     Email = "maria@email.com",
                     FirstName = "Maria",
                     LastName = "González",
                     Telephone = "652365269"
                 },
-                new UserPersistenceModel
+                new Driver
                 {
                     Email = "alvaro@email.com",
                     FirstName = "Alvaro",
@@ -30,14 +30,7 @@ namespace Examples.Option.Infraestructure.User
             };
         }
 
-        public void Create(Domain.User.User user)
-        {
-            var userState = user.State;
-            var persistenceModel = BuildPersistenceModelFrom(userState);
-            users.Add(persistenceModel);
-        }
-
-        public Option<Domain.User.User> SearchBy(string email)
+        public Option<Domain.Driver.Driver> SearchBy(string email)
         {
             var foundUser = users.FirstOrDefault(x => x.Email == email);
             if(foundUser == null) 
@@ -47,10 +40,10 @@ namespace Examples.Option.Infraestructure.User
             return BuildUserFrom(foundUser);
         }
 
-        private UserPersistenceModel BuildPersistenceModelFrom(
-            Domain.User.User.PersistanceState persistanceState)
+        private Driver BuildPersistenceModelFrom(
+            Domain.Driver.Driver.PersistanceState persistanceState)
         {
-            return new UserPersistenceModel
+            return new Driver
             {
                 Email = persistanceState.Email,
                 FirstName = persistanceState.FirstName,
@@ -59,9 +52,9 @@ namespace Examples.Option.Infraestructure.User
             };
         }
 
-        private Domain.User.User BuildUserFrom(UserPersistenceModel persistenceModel)
+        private Domain.Driver.Driver BuildUserFrom(Driver persistenceModel)
         {
-            return new Domain.User.User(
+            return new Domain.Driver.Driver(
                 email: persistenceModel.Email,
                 firstName: persistenceModel.FirstName,
                 lastName: persistenceModel.LastName,

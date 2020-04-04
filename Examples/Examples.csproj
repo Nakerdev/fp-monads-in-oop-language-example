@@ -11,8 +11,8 @@
     <Folder Include="Option\" />
     <Folder Include="Option\Domain\" />
     <Folder Include="Option\Infraestructure\" />
-    <Folder Include="Option\Infraestructure\User\" />
-    <Folder Include="Option\Domain\User\" />
+    <Folder Include="Option\Infraestructure\Driver\" />
+    <Folder Include="Option\Domain\Driver\" />
     <Folder Include="Option\Domain\TrafficTickets\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
-﻿namespace Examples.Option.Infraestructure.User
+﻿namespace Examples.Option.Infraestructure.Driver
 {
-    public sealed class UserPersistenceModel
+    public sealed class Driver
     {
         public string Email { get; set; }
         public string FirstName { get; set; }

@@ -1,8 +1,8 @@
 ﻿using LanguageExt;
 
-namespace Examples.Option.Domain.User
+namespace Examples.Option.Domain.Driver
 {
-    public sealed class User
+    public sealed class Driver
     {
         public string Email { get; }
         public string FirstName { get; }
@@ -14,7 +14,7 @@ namespace Examples.Option.Domain.User
             lastName: LastName,
             telephone: Telephone.IfNoneUnsafe(() => null));
 
-        public User(
+        public Driver(
             string email,
             string firstName,
             string lastName,
@@ -26,7 +26,7 @@ namespace Examples.Option.Domain.User
             Telephone = telephone;
         }
 
-        public User(PersistanceState state)
+        public Driver(PersistanceState state)
         {
             Email = state.Email;
             FirstName = state.FirstName;
