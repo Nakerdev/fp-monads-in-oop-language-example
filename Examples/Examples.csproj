@@ -13,9 +13,12 @@
     <Folder Include="Option\Infraestructure\" />
     <Folder Include="Option\Infraestructure\User\" />
     <Folder Include="Option\Domain\User\" />
+    <Folder Include="Option\Domain\TrafficTickets\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Class1.cs" />
     <Compile Remove="Option\Domain\UserSignUpService.cs" />
+    <Compile Remove="Option\TrafficTickets\Domain\User\UserRepository.cs" />
+    <Compile Remove="Option\TrafficTickets\Domain\User\User.cs" />
   </ItemGroup>
 </Project>
