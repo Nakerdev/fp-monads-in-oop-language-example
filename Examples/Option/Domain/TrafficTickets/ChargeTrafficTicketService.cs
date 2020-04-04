@@ -16,49 +16,67 @@ namespace Examples.Option.Domain.TrafficTickets
             this.trafficTicketRepository = trafficTicketRepository;
         }
 
-        Either<Error, TrafficTicket> Execute(TrafficTicketChargeRequest request)
+        Either<Error, TrafficTicket> UnsafeExecute(TrafficTicketChargeRequest request)
+        {
+            var driver = driverRepository.SearchBy(personalIdentificationCode: request.DriverPersonalIdentificationCode);
+            if(driver == null) 
+            {
+                return Error.DriverNotFound; 
+            }
+
+            //Ups.... trafficTicket can be null!!!
+            var trafficTicket = trafficTicketRepository.UsafeSearchBy(request.TrafficTicketId);
+
+            //var paymentRequest = new PaymentRequest(...)
+            //var chargeId = paymentService.pay(paymentRequest)
+            var chargeId = "chargeId";
+
+            //Possible NullPointerException!!!
+            trafficTicket.MarkAsPaid(chargeId);
+
+            return trafficTicket;
+        }
+
+
+        Either<Error, TrafficTicket> SafeExecute(TrafficTicketChargeRequest request)
         {
             return
                 from driver in SearchDriverBy(request.DriverPersonalIdentificationCode)
                 from trafficTicket in SearchTrafficTicketBy(request.TrafficTicketId)
-                from chargeId in PayTrafficTicket(
-                    driver: driver, 
-                    trafficTicket: trafficTicket)
-                from _ in MarkTrafficTicketAsPaid(
-                    trafficTicket: trafficTicket, 
-                    chargeId: chargeId)
+                from chargeId in PayTrafficTicket(trafficTicket, driver)
+                from _ in MarkTrafficTicketAsPaid(trafficTicket, chargeId)
                 select trafficTicket;
-        }
 
-        Either<Error, Driver.Driver> SearchDriverBy(string personalIdentificationCode) 
-        {
-            return driverRepository
-                .SearchBy(personalIdentificationCode: personalIdentificationCode)
-                .ToEither(() => Error.DriverNotFound);
-        }
+            Either<Error, Driver.Driver> SearchDriverBy(string personalIdentificationCode)
+            {
+                return driverRepository
+                    .SearchBy(personalIdentificationCode: personalIdentificationCode)
+                    .ToEither(() => Error.DriverNotFound);
+            }
 
-        Either<Error, TrafficTicket> SearchTrafficTicketBy(string trafficTicketId)
-        {
-            return trafficTicketRepository
-                .SearchBy(id: trafficTicketId)
-                .ToEither(() => Error.TrafficTicketNotFound);
-        }
+            Either<Error, TrafficTicket> SearchTrafficTicketBy(string trafficTicketId)
+            {
+                return trafficTicketRepository
+                    .SafeSearchBy(id: trafficTicketId)
+                    .ToEither(() => Error.TrafficTicketNotFound);
+            }
 
-        Either<Error, string> PayTrafficTicket(
-            TrafficTicket trafficTicket,
-            Driver.Driver driver)
-        {
-            //pay traffic ticket with stripe for example using driver object 
-            //for extract driver information.
-            return "chargeId";
-        }
+            Either<Error, string> PayTrafficTicket(
+                TrafficTicket trafficTicket,
+                Driver.Driver driver)
+            {
+                //var paymentRequest = new PaymentRequest(...)
+                //var chargeId = paymentService.pay(paymentRequest)
+                return "chargeId";
+            }
 
-        Either<Error, Unit> MarkTrafficTicketAsPaid(
-            TrafficTicket trafficTicket,
-            string chargeId)
-        {
-            trafficTicket.MarkAsPaid(chargeId);
-            return Prelude.unit;
+            Either<Error, Unit> MarkTrafficTicketAsPaid(
+                TrafficTicket trafficTicket,
+                string chargeId)
+            {
+                trafficTicket.MarkAsPaid(chargeId);
+                return Prelude.unit;
+            }
         }
     }
 

@@ -4,7 +4,8 @@ namespace Examples.Option.Domain.TrafficTickets
 {
     public interface TrafficTicketRepository
     {
-        Option<TrafficTicket> SearchBy(string id);
+        Option<TrafficTicket> SafeSearchBy(string id);
+        TrafficTicket UsafeSearchBy(string id);
         void Update(TrafficTicket trafficTicket);
     }
 }
