@@ -11,8 +11,10 @@
     <Folder Include="Option\" />
     <Folder Include="Option\Domain\" />
     <Folder Include="Option\Infraestructure\" />
+    <Folder Include="Option\Infraestructure\User\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Class1.cs" />
+    <Compile Remove="Option\Domain\UserSignUpService.cs" />
   </ItemGroup>
 </Project>

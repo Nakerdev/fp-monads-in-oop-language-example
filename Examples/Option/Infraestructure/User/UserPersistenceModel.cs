@@ -1,4 +1,4 @@
-﻿namespace Examples.Option.Infraestructure
+﻿namespace Examples.Option.Infraestructure.User
 {
     public sealed class UserPersistenceModel
     {

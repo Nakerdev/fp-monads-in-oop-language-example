@@ -1,7 +1,6 @@
-﻿using Examples.Option.Domain;
-using LanguageExt;
+﻿using LanguageExt;
 
-namespace Examples.Option
+namespace Examples.Option.Domain
 {
     public interface UserRepository
     {
