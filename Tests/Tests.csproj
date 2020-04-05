@@ -24,5 +24,6 @@
   <ItemGroup>
     <Folder Include="Domain\" />
     <Folder Include="Domain\TrafficTickets\" />
+    <Folder Include="Option\" />
   </ItemGroup>
 </Project>
