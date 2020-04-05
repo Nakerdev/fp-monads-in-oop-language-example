@@ -3,7 +3,7 @@ using System.Linq;
 using Examples.Option.Domain.Driver;
 using LanguageExt;
 
-namespace Examples.Option.Infraestructure.Driver
+namespace Examples.Infraestructure.Driver
 {
     public class StaticDriverRepository : DriverRepository
     {

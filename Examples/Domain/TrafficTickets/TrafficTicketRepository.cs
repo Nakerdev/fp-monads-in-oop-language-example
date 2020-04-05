@@ -1,6 +1,6 @@
 ﻿using LanguageExt;
 
-namespace Examples.Option.Domain.TrafficTickets
+namespace Examples.Domain.TrafficTickets
 {
     public interface TrafficTicketRepository
     {

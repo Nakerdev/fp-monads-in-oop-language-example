@@ -1,7 +1,7 @@
 ﻿using LanguageExt;
 using Examples.Option.Domain.Driver;
 
-namespace Examples.Option.Domain.TrafficTickets
+namespace Examples.Domain.TrafficTickets
 {
     public sealed class ChargeTrafficTicketService
     {

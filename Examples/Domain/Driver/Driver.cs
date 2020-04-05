@@ -1,6 +1,6 @@
 ﻿using LanguageExt;
 
-namespace Examples.Option.Domain.Driver
+namespace Examples.Domain.Driver
 {
     public sealed class Driver
     {

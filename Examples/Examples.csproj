@@ -8,12 +8,8 @@
     <PackageReference Include="LanguageExt.Core" Version="3.4.13" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Option\" />
-    <Folder Include="Option\Domain\" />
-    <Folder Include="Option\Infraestructure\" />
-    <Folder Include="Option\Infraestructure\Driver\" />
-    <Folder Include="Option\Domain\Driver\" />
-    <Folder Include="Option\Domain\TrafficTickets\" />
+    <Folder Include="Domain\" />
+    <Folder Include="Infraestructure\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Class1.cs" />

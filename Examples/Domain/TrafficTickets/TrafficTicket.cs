@@ -1,7 +1,6 @@
-﻿using System;
-using LanguageExt;
+﻿using LanguageExt;
 
-namespace Examples.Option.Domain.TrafficTickets
+namespace Examples.Domain.TrafficTickets
 {
     public sealed class TrafficTicket
     {
