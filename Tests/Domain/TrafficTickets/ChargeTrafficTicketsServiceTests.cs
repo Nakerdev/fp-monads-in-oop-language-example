@@ -33,7 +33,7 @@ namespace Tests.Domain.TrafficTickets
                     .Setup(x => x.UnsafeSearchBy(request.DriverPersonalIdentificationCode))
                     .Returns(BuildDriver(request.DriverPersonalIdentificationCode));
                 trafficTicketsRepository
-                    .Setup(x => x.UsafeSearchBy(request.TrafficTicketId))
+                    .Setup(x => x.UnsafeSearchBy(request.TrafficTicketId))
                     .Returns(CreateUnpaidTrafficTicket(request.TrafficTicketId));
 
                 var result = service.UnsafeExecute(request);
@@ -65,10 +65,61 @@ namespace Tests.Domain.TrafficTickets
                     .Setup(x => x.UnsafeSearchBy(It.IsAny<string>()))
                     .Returns(BuildDriver());
                 trafficTicketsRepository
-                    .Setup(x => x.UsafeSearchBy(It.IsAny<string>()))
+                    .Setup(x => x.UnsafeSearchBy(It.IsAny<string>()))
                     .Returns((TrafficTicket) null);
 
                 var result = service.UnsafeExecute(request);
+
+                result.IsLeft.Should().BeTrue();
+                result.IfLeft(error => error.Should().Be(Error.TrafficTicketNotFound));
+            }
+        }
+
+        internal class SafeExecute : ChargeTrafficTicketsServiceTests
+        {
+            [Test]
+            public void ChargesTrafficTickets()
+            {
+                var request = BuildRequest();
+                driverRepository
+                    .Setup(x => x.SafeSearchBy(request.DriverPersonalIdentificationCode))
+                    .Returns(BuildDriver(request.DriverPersonalIdentificationCode));
+                trafficTicketsRepository
+                    .Setup(x => x.SafeSearchBy(request.TrafficTicketId))
+                    .Returns(CreateUnpaidTrafficTicket(request.TrafficTicketId));
+
+                var result = service.SafeExecute(request);
+
+                result.IsRight.Should().BeTrue();
+                result.IfRight(trafficTicket => trafficTicket.IsPaid.Should().BeTrue());
+            }
+
+            [Test]
+            public void DoesNotChargeTrafficTicketWhenDriverNotFound()
+            {
+                var request = BuildRequest();
+                driverRepository
+                    .Setup(x => x.SafeSearchBy(It.IsAny<string>()))
+                    .Returns((Driver)null);
+
+                var result = service.SafeExecute(request);
+
+                result.IsLeft.Should().BeTrue();
+                result.IfLeft(error => error.Should().Be(Error.DriverNotFound));
+            }
+
+            [Test]
+            public void DoesNotChargeTrafficTicketWhenTrafficTicketNotFound()
+            {
+                var request = BuildRequest();
+                driverRepository
+                    .Setup(x => x.SafeSearchBy(It.IsAny<string>()))
+                    .Returns(BuildDriver());
+                trafficTicketsRepository
+                    .Setup(x => x.SafeSearchBy(It.IsAny<string>()))
+                    .Returns((TrafficTicket)null);
+
+                var result = service.SafeExecute(request);
 
                 result.IsLeft.Should().BeTrue();
                 result.IfLeft(error => error.Should().Be(Error.TrafficTicketNotFound));

@@ -25,7 +25,7 @@ namespace Examples.Domain.TrafficTickets
             }
 
             //Ups.... trafficTicket can be null!!!
-            var trafficTicket = trafficTicketRepository.UsafeSearchBy(request.TrafficTicketId);
+            var trafficTicket = trafficTicketRepository.UnsafeSearchBy(request.TrafficTicketId);
 
             //var paymentRequest = new PaymentRequest(...)
             //var chargeId = paymentService.pay(paymentRequest)
