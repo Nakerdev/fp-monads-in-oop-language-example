@@ -40,6 +40,20 @@ namespace Tests.Domain.TrafficTickets
 
                 result.IsRight.Should().BeTrue();
             }
+
+            [Test]
+            public void DoesNotChargeTrafficTicketWhenDriverNotFound()
+            {
+                var request = BuildRequest();
+                driverRepository
+                    .Setup(x => x.SafeSearchBy(request.DriverPersonalIdentificationCode))
+                    .Returns((Driver) null);
+
+                var result = service.UnsafeExecute(request);
+
+                result.IsLeft.Should().BeTrue();
+                result.IfLeft(error => error.Should().Be(Error.DriverNotFound));
+            }
         }
 
         private TrafficTicketChargeRequest BuildRequest() 
