@@ -5789,11 +5789,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/naker90/Desktop/Projects/LanguageExtExamples/Tests/Tests.csproj",
+      "projectUniqueName": "/home/naker90/Desktop/Projects/fp-monads-in-oop-language-examples/Tests/Tests.csproj",
       "projectName": "Tests",
-      "projectPath": "/home/naker90/Desktop/Projects/LanguageExtExamples/Tests/Tests.csproj",
+      "projectPath": "/home/naker90/Desktop/Projects/fp-monads-in-oop-language-examples/Tests/Tests.csproj",
       "packagesPath": "/home/naker90/.nuget/packages/",
-      "outputPath": "/home/naker90/Desktop/Projects/LanguageExtExamples/Tests/obj/",
+      "outputPath": "/home/naker90/Desktop/Projects/fp-monads-in-oop-language-examples/Tests/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"
@@ -5810,8 +5810,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "/home/naker90/Desktop/Projects/LanguageExtExamples/Examples/Examples.csproj": {
-              "projectPath": "/home/naker90/Desktop/Projects/LanguageExtExamples/Examples/Examples.csproj"
+            "/home/naker90/Desktop/Projects/fp-monads-in-oop-language-examples/Examples/Examples.csproj": {
+              "projectPath": "/home/naker90/Desktop/Projects/fp-monads-in-oop-language-examples/Examples/Examples.csproj"
             }
           }
         }

@@ -2593,11 +2593,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/naker90/Desktop/Projects/LanguageExtExamples/Examples/Examples.csproj",
+      "projectUniqueName": "/home/naker90/Desktop/Projects/fp-monads-in-oop-language-examples/Examples/Examples.csproj",
       "projectName": "Examples",
-      "projectPath": "/home/naker90/Desktop/Projects/LanguageExtExamples/Examples/Examples.csproj",
+      "projectPath": "/home/naker90/Desktop/Projects/fp-monads-in-oop-language-examples/Examples/Examples.csproj",
       "packagesPath": "/home/naker90/.nuget/packages/",
-      "outputPath": "/home/naker90/Desktop/Projects/LanguageExtExamples/Examples/obj/",
+      "outputPath": "/home/naker90/Desktop/Projects/fp-monads-in-oop-language-examples/Examples/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"
