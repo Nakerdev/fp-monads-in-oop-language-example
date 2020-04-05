@@ -30,7 +30,7 @@ namespace Tests.Domain.TrafficTickets
             {
                 var request = BuildRequest();
                 driverRepository
-                    .Setup(x => x.SafeSearchBy(request.DriverPersonalIdentificationCode))
+                    .Setup(x => x.UnsafeSearchBy(request.DriverPersonalIdentificationCode))
                     .Returns(BuildDriver(request.DriverPersonalIdentificationCode));
                 trafficTicketsRepository
                     .Setup(x => x.UsafeSearchBy(request.TrafficTicketId))
@@ -46,7 +46,7 @@ namespace Tests.Domain.TrafficTickets
             {
                 var request = BuildRequest();
                 driverRepository
-                    .Setup(x => x.SafeSearchBy(request.DriverPersonalIdentificationCode))
+                    .Setup(x => x.UnsafeSearchBy(request.DriverPersonalIdentificationCode))
                     .Returns((Driver) null);
 
                 var result = service.UnsafeExecute(request);

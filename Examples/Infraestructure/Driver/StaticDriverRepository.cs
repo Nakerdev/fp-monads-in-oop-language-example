@@ -41,6 +41,17 @@ namespace Examples.Infraestructure.Driver
             return BuildUserFrom(foundUser);
         }
 
+        public Domain.Driver.Driver UnsafeSearchBy(string personalIdentificationCode)
+        {
+            var foundUser = users
+                .FirstOrDefault(x => x.PersonalIdentificationCode == personalIdentificationCode);
+            if (foundUser == null)
+            {
+                return null;
+            }
+            return BuildUserFrom(foundUser);
+        }
+
         private Domain.Driver.Driver BuildUserFrom(Driver persistenceModel)
         {
             return new Domain.Driver.Driver(
