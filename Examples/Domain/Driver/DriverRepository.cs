@@ -4,6 +4,6 @@ namespace Examples.Domain.Driver
 {
     public interface DriverRepository
     {
-        Option<Driver> SearchBy(string personalIdentificationCode);
+        Option<Driver> SafeSearchBy(string personalIdentificationCode);
     }
 }

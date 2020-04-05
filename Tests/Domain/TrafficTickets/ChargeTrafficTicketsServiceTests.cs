@@ -26,11 +26,11 @@ namespace Tests.Domain.TrafficTickets
         internal class UnsafeExecute : ChargeTrafficTicketsServiceTests
         {
             [Test]
-            public void ChargesTrafficTickets() 
+            public void ChargesTrafficTickets()
             {
                 var request = BuildRequest();
                 driverRepository
-                    .Setup(x => x.SearchBy(request.DriverPersonalIdentificationCode))
+                    .Setup(x => x.SafeSearchBy(request.DriverPersonalIdentificationCode))
                     .Returns(BuildDriver(request.DriverPersonalIdentificationCode));
                 trafficTicketsRepository
                     .Setup(x => x.UsafeSearchBy(request.TrafficTicketId))

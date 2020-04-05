@@ -30,7 +30,7 @@ namespace Examples.Infraestructure.Driver
             };
         }
 
-        public Option<Domain.Driver.Driver> SearchBy(string personalIdentificationCode)
+        public Option<Domain.Driver.Driver> SafeSearchBy(string personalIdentificationCode)
         {
             var foundUser = users
                 .FirstOrDefault(x => x.PersonalIdentificationCode == personalIdentificationCode);

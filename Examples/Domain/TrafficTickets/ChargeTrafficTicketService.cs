@@ -18,7 +18,7 @@ namespace Examples.Domain.TrafficTickets
 
         public Either<Error, TrafficTicket> UnsafeExecute(TrafficTicketChargeRequest request)
         {
-            var driver = driverRepository.SearchBy(personalIdentificationCode: request.DriverPersonalIdentificationCode);
+            var driver = driverRepository.SafeSearchBy(personalIdentificationCode: request.DriverPersonalIdentificationCode);
             if(driver == null) 
             {
                 return Error.DriverNotFound; 
@@ -50,7 +50,7 @@ namespace Examples.Domain.TrafficTickets
             Either<Error, Driver.Driver> SearchDriverBy(string personalIdentificationCode)
             {
                 return driverRepository
-                    .SearchBy(personalIdentificationCode: personalIdentificationCode)
+                    .SafeSearchBy(personalIdentificationCode: personalIdentificationCode)
                     .ToEither(() => Error.DriverNotFound);
             }
 
