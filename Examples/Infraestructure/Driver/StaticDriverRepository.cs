@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Examples.Option.Domain.Driver;
+using Examples.Domain.Driver;
 using LanguageExt;
 
 namespace Examples.Infraestructure.Driver

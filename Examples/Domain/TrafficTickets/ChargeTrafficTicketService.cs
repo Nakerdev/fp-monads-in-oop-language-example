@@ -1,5 +1,5 @@
 ﻿using LanguageExt;
-using Examples.Option.Domain.Driver;
+using Examples.Domain.Driver;
 
 namespace Examples.Domain.TrafficTickets
 {
@@ -16,7 +16,7 @@ namespace Examples.Domain.TrafficTickets
             this.trafficTicketRepository = trafficTicketRepository;
         }
 
-        Either<Error, TrafficTicket> UnsafeExecute(TrafficTicketChargeRequest request)
+        public Either<Error, TrafficTicket> UnsafeExecute(TrafficTicketChargeRequest request)
         {
             var driver = driverRepository.SearchBy(personalIdentificationCode: request.DriverPersonalIdentificationCode);
             if(driver == null) 
@@ -38,7 +38,7 @@ namespace Examples.Domain.TrafficTickets
         }
 
 
-        Either<Error, TrafficTicket> SafeExecute(TrafficTicketChargeRequest request)
+        public Either<Error, TrafficTicket> SafeExecute(TrafficTicketChargeRequest request)
         {
             return
                 from driver in SearchDriverBy(request.DriverPersonalIdentificationCode)
@@ -84,6 +84,14 @@ namespace Examples.Domain.TrafficTickets
     {
         public string TrafficTicketId { get; }
         public string DriverPersonalIdentificationCode { get; }
+
+        public TrafficTicketChargeRequest(
+            string trafficTicketId, 
+            string driverPersonalIdentificationCode)
+        {
+            TrafficTicketId = trafficTicketId;
+            DriverPersonalIdentificationCode = driverPersonalIdentificationCode;
+        }
     }
 
     public enum Error 
