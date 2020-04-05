@@ -9,6 +9,12 @@ namespace Examples.Domain.TrafficTickets
         public string DriverPersonalIndentificationCode { get; }
         public bool IsPaid { get; private set; }
         public Option<string> ChargeId { get; private set; }
+        public PersistenceState State => new PersistenceState(
+            id: Id,
+            ammount: Ammount,
+            driverPersonalIndentificationCode: DriverPersonalIndentificationCode,
+            isPaid: IsPaid,
+            chargeId: ChargeId.IfNoneUnsafe(() => null));
 
         public static TrafficTicket CreateUnpaidTrafficTicket(
             string id,
@@ -21,6 +27,15 @@ namespace Examples.Domain.TrafficTickets
                driverPersonalIndentificationCode: driverPersonalIndentificationCode,
                isPaid: false,
                chargeId: null);
+        }
+
+        public TrafficTicket(PersistenceState state)
+        {
+            Id = state.Id;
+            Ammount = state.Ammount;
+            DriverPersonalIndentificationCode = state.DriverPersonalIndentificationCode;
+            IsPaid = state.IsPaid;
+            ChargeId = state.ChargeId;
         }
 
         private TrafficTicket(
@@ -41,6 +56,29 @@ namespace Examples.Domain.TrafficTickets
         {
             IsPaid = true;
             ChargeId = chargeId;
+        }
+
+        public sealed class PersistenceState
+        {
+            public string Id { get; }
+            public double Ammount { get; }
+            public string DriverPersonalIndentificationCode { get; }
+            public bool IsPaid { get; }
+            public string ChargeId { get; }
+
+            public PersistenceState(
+                string id, 
+                double ammount, 
+                string driverPersonalIndentificationCode, 
+                bool isPaid, 
+                string chargeId)
+            {
+                Id = id;
+                Ammount = ammount;
+                DriverPersonalIndentificationCode = driverPersonalIndentificationCode;
+                IsPaid = isPaid;
+                ChargeId = chargeId;
+            }
         }
     }
 }

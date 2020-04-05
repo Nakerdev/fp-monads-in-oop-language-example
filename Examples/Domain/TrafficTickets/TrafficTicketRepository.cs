@@ -1,4 +1,5 @@
-﻿using LanguageExt;
+﻿using System;
+using LanguageExt;
 
 namespace Examples.Domain.TrafficTickets
 {
@@ -8,4 +9,6 @@ namespace Examples.Domain.TrafficTickets
         TrafficTicket UnsafeSearchBy(string id);
         void Update(TrafficTicket trafficTicket);
     }
+
+    public class TrafficTicketNotFound : Exception { }
 }
