@@ -18,7 +18,7 @@ namespace Tests.Option
 
             stringWithValue.IfSome(value => value.Should().Be("foo"));
 
-            //You can't access to any public method of strig directly.
+            //You can't access to any 'string' public method directly.
             //stringWithValue.Length().Should().Be(3);
 
             //You must handle both branchs, none branch and some branch.
