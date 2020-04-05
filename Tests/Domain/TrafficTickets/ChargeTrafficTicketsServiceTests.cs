@@ -39,6 +39,7 @@ namespace Tests.Domain.TrafficTickets
                 var result = service.UnsafeExecute(request);
 
                 result.IsRight.Should().BeTrue();
+                result.IfRight(trafficTicket => trafficTicket.IsPaid.Should().BeTrue());
             }
 
             [Test]
@@ -47,13 +48,14 @@ namespace Tests.Domain.TrafficTickets
                 var request = BuildRequest();
                 driverRepository
                     .Setup(x => x.UnsafeSearchBy(request.DriverPersonalIdentificationCode))
-                    .Returns((Driver) null);
+                    .Returns((Driver)null);
 
                 var result = service.UnsafeExecute(request);
 
                 result.IsLeft.Should().BeTrue();
                 result.IfLeft(error => error.Should().Be(Error.DriverNotFound));
             }
+
         }
 
         private TrafficTicketChargeRequest BuildRequest() 
