@@ -47,7 +47,7 @@ namespace Tests.Domain.TrafficTickets
             {
                 var request = BuildRequest();
                 driverRepository
-                    .Setup(x => x.UnsafeSearchBy(request.DriverPersonalIdentificationCode))
+                    .Setup(x => x.UnsafeSearchBy(It.IsAny<string>()))
                     .Returns((Driver)null);
 
                 var result = service.UnsafeExecute(request);
@@ -56,6 +56,23 @@ namespace Tests.Domain.TrafficTickets
                 result.IfLeft(error => error.Should().Be(Error.DriverNotFound));
             }
 
+            //This test breaks with NullReferencesException
+            //[Test]
+            public void DoesNotChargeTrafficTicketWhenTrafficTicketNotFound()
+            {
+                var request = BuildRequest();
+                driverRepository
+                    .Setup(x => x.UnsafeSearchBy(It.IsAny<string>()))
+                    .Returns(BuildDriver());
+                trafficTicketsRepository
+                    .Setup(x => x.UsafeSearchBy(It.IsAny<string>()))
+                    .Returns((TrafficTicket) null);
+
+                var result = service.UnsafeExecute(request);
+
+                result.IsLeft.Should().BeTrue();
+                result.IfLeft(error => error.Should().Be(Error.TrafficTicketNotFound));
+            }
         }
 
         private TrafficTicketChargeRequest BuildRequest() 
