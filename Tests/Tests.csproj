@@ -26,5 +26,6 @@
     <Folder Include="Domain\TrafficTickets\" />
     <Folder Include="Option\" />
     <Folder Include="Either\" />
+    <Folder Include="Application\" />
   </ItemGroup>
 </Project>
