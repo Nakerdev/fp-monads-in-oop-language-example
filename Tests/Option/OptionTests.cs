@@ -91,5 +91,45 @@ namespace Tests.Option
 
             var posibleNullValue2 = optionalString.IfNoneUnsafe(() => null);
         }
+
+        [Test]
+        public void BindMethodsThatReturnsOptionalTypes() 
+        {
+            Option<string> fullName1 = GetFirstName().Match(
+                None: () => Prelude.None,
+                Some: firstName =>
+                {
+                    return GetLastName().Match(
+                        None: () => Option<string>.None,
+                        Some: lastName => $"{firstName} {lastName}");
+                });
+
+            Option<string> fullName2 = GetFirstName().Bind<string>(firstname =>
+                GetLastName().Bind<string>(lastName =>
+                {
+                    var a = $"{firstname} {lastName}";
+                    return a;
+                }));
+
+            //This only works with C#. Query syntax.
+            Option<string> fullName3 =
+                from firstName in GetFirstName()
+                from lastName in GetLastName()
+                select $"{firstName} {lastName}";
+
+            fullName1.IsSome.Should().BeTrue();
+            fullName2.IsSome.Should().BeTrue();
+            fullName3.IsSome.Should().BeTrue();
+
+            Option<string> GetFirstName() 
+            {
+                return "Alvaro";
+            }
+
+            Option<string> GetLastName()
+            {
+                return "Gonzalez";
+            }
+        }
     }
 }
