@@ -11,6 +11,7 @@
     <Folder Include="Domain\" />
     <Folder Include="Infraestructure\" />
     <Folder Include="Infraestructure\TrafficTickets\" />
+    <Folder Include="Application\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Class1.cs" />
