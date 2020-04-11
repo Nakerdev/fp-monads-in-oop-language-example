@@ -10,5 +10,5 @@ namespace Examples.Domain.TrafficTickets
         void Update(TrafficTicket trafficTicket);
     }
 
-    public class TrafficTicketNotFound : Exception { }
+    public sealed class TrafficTicketNotFound : Exception { }
 }

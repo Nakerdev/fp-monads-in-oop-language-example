@@ -23,7 +23,7 @@ namespace Tests.Domain.TrafficTickets
                 trafficTicketRepository: trafficTicketsRepository.Object);
         }
 
-        internal class UnsafeExecute : ChargeTrafficTicketsServiceTests
+        internal sealed class UnsafeExecute : ChargeTrafficTicketsServiceTests
         {
             [Test]
             public void ChargesTrafficTickets()
@@ -75,7 +75,7 @@ namespace Tests.Domain.TrafficTickets
             }
         }
 
-        internal class SafeExecute : ChargeTrafficTicketsServiceTests
+        internal sealed class SafeExecute : ChargeTrafficTicketsServiceTests
         {
             [Test]
             public void ChargesTrafficTickets()

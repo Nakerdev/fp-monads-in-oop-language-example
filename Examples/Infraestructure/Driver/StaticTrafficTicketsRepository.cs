@@ -5,7 +5,7 @@ using LanguageExt;
 
 namespace Examples.Infraestructure.Driver
 {
-    public class StaticTrafficTicketsRepository : DriverRepository
+    public sealed class StaticTrafficTicketsRepository : DriverRepository
     {
         private List<Driver> users;
 

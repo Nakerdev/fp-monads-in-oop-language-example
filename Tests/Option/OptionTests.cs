@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Tests.Option
 {
     [TestFixture]
-    public class OptionTests
+    public sealed class OptionTests
     {
         [Test]
         public void NullableType() 

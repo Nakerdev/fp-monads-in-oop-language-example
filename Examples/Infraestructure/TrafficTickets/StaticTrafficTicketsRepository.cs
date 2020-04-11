@@ -5,7 +5,7 @@ using LanguageExt;
 
 namespace Examples.Infraestructure.TrafficTickets
 {
-    public class StaticTrafficTicketsRepository : TrafficTicketRepository
+    public sealed class StaticTrafficTicketsRepository : TrafficTicketRepository
     {
         private List<TrafficTicket> trafficTickets;
 
