@@ -9,6 +9,7 @@ namespace Examples.Domain.TrafficTickets
         public string DriverPersonalIndentificationCode { get; }
         public bool IsPaid { get; private set; }
         public Option<string> ChargeId { get; private set; }
+
         public PersistenceState State => new PersistenceState(
             id: Id,
             ammount: Ammount,

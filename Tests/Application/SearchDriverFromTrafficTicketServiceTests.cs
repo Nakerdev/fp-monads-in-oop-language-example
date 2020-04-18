@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using LanguageExt;
 using Moq;
 using NUnit.Framework;
 
@@ -41,5 +42,37 @@ namespace Tests.Application
 
             driverFullName.Should().Be($"{driver.FirstName} {driver.LastName}");
         }
+
+        [Test]
+        public void GetsDriveFullNameSafe()
+        {
+            int trafficTicketId = 1;
+            var trafficTicket = new Examples.Application.TrafficTicket(
+                driverPersonalIdentificationCode: "422345456P");
+            trafficTicketRepository
+                .Setup(x => x.SafeSearchBy(trafficTicketId))
+                .Returns(trafficTicket);
+            var driver = new Examples.Application.Driver(
+                firstName: "Alvaro",
+                lastName: "Gonzalez");
+            driverRepository
+                .Setup(x => x.SafeSearchy(trafficTicket.DriverPersonalIdentificationCode))
+                .Returns(driver);
+
+            var driverFullName = service.SafeGetFullName(trafficTicketId);
+
+            driverFullName.ShouldBeSomeWithValue($"{driver.FirstName} {driver.LastName}");
+        }
+    }
+}
+
+public static class TestUtils 
+{
+    public static void ShouldBeSomeWithValue<T>(
+        this Option<T> optionalType, 
+        T expectedValue) 
+    {
+        optionalType.IsSome.Should().BeTrue();
+        optionalType.IfSome(fullName => fullName.Should().Be(expectedValue));
     }
 }

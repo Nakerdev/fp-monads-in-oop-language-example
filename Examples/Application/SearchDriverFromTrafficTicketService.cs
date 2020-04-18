@@ -27,6 +27,14 @@ namespace Examples.Application
             //Possible NullPointerException!!
             return $"{driver.FirstName} {driver.LastName}";
         }
+
+        public Option<string> SafeGetFullName(int trafficTicketId)
+        {
+            return
+                from trafficticket in trafficTicketRepository.SafeSearchBy(trafficTicketId)
+                from driver in driverRepository.SafeSearchy(trafficticket.DriverPersonalIdentificationCode)
+                select $"{driver.FirstName} {driver.LastName}";
+        }
     }
 
     public interface TrafficTicketRepository
