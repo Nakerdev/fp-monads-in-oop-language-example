@@ -23,7 +23,23 @@ namespace Tests.Option
         [Test]
         public void OptionalTypesPublicMethods() 
         {
+            //None -> No data
+            //Some -> Data
             Option<string> optionalString = "1";
+
+            //You can't get the value directly.
+            //optionalString.Length().Should().Be(1);
+
+            //Match can returns Unit(void) or the inner type of the Option.
+            optionalString.Match(
+                None: () => true.Should().BeFalse(),
+                Some: value => value.Should().Be("1"));
+
+            //You can return another string value but can't map to another type.
+            string optionalValue = optionalString.Match(
+                None: () => string.Empty,
+                Some: value => value);
+            optionalValue.Should().Be("1");
 
             optionalString.IsSome.Should().BeTrue();
             optionalString.IsNone.Should().BeFalse();
@@ -33,31 +49,19 @@ namespace Tests.Option
             optionalString.IfSome(value => value.Should().Be("1"));
             optionalString.IfNone(() => true.Should().BeTrue());
 
-            //Match can returns Unit(void) or the inner type of the Option.
-            optionalString.Match(
-                None: () => true.Should().BeTrue(),
-                Some: value => value.Should().Be("1"));
-
-            //You can return another string value but can't map to another type.
-            var optionalValue = optionalString.Match(
-                None: () => string.Empty,
-                Some: value => value);
-            optionalValue.Should().Be("1");
-
             //When you map the type the result will be another optional type.
-            var number = optionalString.Map(value => int.Parse(value));
+            Option<int> number = optionalString.Map(value => int.Parse(value));
             number.Match(
                 None: () => true.Should().BeTrue(),
                 Some: num => num.Should().Be(1));
 
             //You can convert optional types to null using unsafe methods.
-
             var possibleNullValue = optionalString.MatchUnsafe(
                 None: () => null,
                 Some: value => value);
             possibleNullValue.Should().Be("1");
 
-            var posibleNullValue2 = optionalString.IfNoneUnsafe(() => null);
+            string posibleNullValue2 = optionalString.IfNoneUnsafe(() => null);
         }
 
         [Test]
@@ -72,11 +76,10 @@ namespace Tests.Option
                         Some: lastName => $"{firstName} {lastName}");
                 });
 
-            Option<string> fullName2 = GetFirstName().Bind<string>(firstname =>
+            Option<string> fullName2 = GetFirstName().Bind(firstname =>
                 GetLastName().Bind<string>(lastName =>
                 {
-                    var a = $"{firstname} {lastName}";
-                    return a;
+                    return $"{firstname} {lastName}";
                 }));
 
             //This only works with C#. Query syntax.

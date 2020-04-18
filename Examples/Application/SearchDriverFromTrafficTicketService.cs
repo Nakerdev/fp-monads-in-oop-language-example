@@ -47,7 +47,7 @@ namespace Examples.Application
 
     public interface DriverRepository 
     {
-        Option<Driver> SearchBy(string personalIdentificationCode);
+        Option<Driver> SafeSearchy(string personalIdentificationCode);
         Driver UnsafeSearchBy(string personalIdentificationCode);
     }
 

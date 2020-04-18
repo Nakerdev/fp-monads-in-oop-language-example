@@ -22,7 +22,7 @@ namespace Tests.Application
         }
 
         [Test]
-        public void GetsDriveFullName() 
+        public void GetsDriveFullNameUnSafe() 
         {
             int trafficTicketId = 1;
             var trafficTicket = new Examples.Application.TrafficTicket(
