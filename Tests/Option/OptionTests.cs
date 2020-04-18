@@ -12,44 +12,12 @@ namespace Tests.Option
         {
             int? nullableInt = null;
             //You can't mark all types as nullable.
-            //string? nullableInt?? = null;
+            //string? nullableString = null;
 
             //You can access to nullable value. It fails in runtime, not in compile time.
             //nullableInt.Value.Should().Be(1);
 
             nullableInt.HasValue.Should().BeFalse();
-        }
-
-        [Test]
-        public void OptionalType()
-        {
-            Option<string> stringWithValue = "foo";
-            Option<string> stringWithoutValue = null;
-
-            stringWithValue.IsSome.Should().BeTrue();
-            stringWithoutValue.IsNone.Should().BeTrue();
-
-            stringWithValue.IfSome(value => value.Should().Be("foo"));
-
-            //You can't access to any 'string' public method directly.
-            //stringWithValue.Length().Should().Be(3);
-
-            //You must handle both branchs, none branch and some branch.
-            stringWithValue.Match(
-                None: () => true.Should().BeFalse(),
-                Some: value => value.Length().Should().Be(3));
-        }
-
-        //This test breaks witn NullReferenceException
-        //[Test]
-        public void DifferenceBetweenNullableTypeAndOptionalType() 
-        {
-            int? nullableInt = null;
-            Option<int> optionalInt = Prelude.None;
-
-            //NullReferenceException
-            nullableInt.Value.Should().Be(1);
-            optionalInt.IfSome(number => number.Should().Be(1));
         }
 
         [Test]
