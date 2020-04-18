@@ -1,5 +1,6 @@
 ﻿using LanguageExt;
 using Examples.Domain.Driver;
+using System;
 
 namespace Examples.Domain.TrafficTickets
 {
@@ -16,24 +17,25 @@ namespace Examples.Domain.TrafficTickets
             this.trafficTicketRepository = trafficTicketRepository;
         }
 
-        public Either<Error, TrafficTicket> UnsafeExecute(TrafficTicketChargeRequest request)
+        public TrafficTicket UnsafeExecute(TrafficTicketChargeRequest request)
         {
             var driver = driverRepository.UnsafeSearchBy(request.DriverPersonalIdentificationCode);
             if(driver == null) 
             {
-                return Error.DriverNotFound; 
+                throw new DriverNotFoundException(); 
             }
 
-            //Ups.... trafficTicket can be null!!!
             var trafficTicket = trafficTicketRepository.UnsafeSearchBy(request.TrafficTicketId);
+            if (trafficTicket == null)
+            {
+                throw new TrafficTicketNotFoundException();
+            }
 
             //var paymentRequest = new PaymentRequest(...)
             //var chargeId = paymentService.pay(paymentRequest)
             var chargeId = "chargeId";
 
-            //Possible NullPointerException!!!
             trafficTicket.MarkAsPaid(chargeId);
-
             return trafficTicket;
         }
 
@@ -99,4 +101,7 @@ namespace Examples.Domain.TrafficTickets
         DriverNotFound,
         TrafficTicketNotFound
     }
+
+    public sealed class DriverNotFoundException : Exception { }
+    public sealed class TrafficTicketNotFoundException : Exception { }
 }

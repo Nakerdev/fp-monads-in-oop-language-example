@@ -36,10 +36,9 @@ namespace Tests.Domain.TrafficTickets
                     .Setup(x => x.UnsafeSearchBy(request.TrafficTicketId))
                     .Returns(CreateUnpaidTrafficTicket(request.TrafficTicketId));
 
-                var result = service.UnsafeExecute(request);
+                var trafficTicket = service.UnsafeExecute(request);
 
-                result.IsRight.Should().BeTrue();
-                result.IfRight(trafficTicket => trafficTicket.IsPaid.Should().BeTrue());
+                trafficTicket.IsPaid.Should().BeTrue();
             }
 
             [Test]
@@ -50,14 +49,11 @@ namespace Tests.Domain.TrafficTickets
                     .Setup(x => x.UnsafeSearchBy(It.IsAny<string>()))
                     .Returns((Driver)null);
 
-                var result = service.UnsafeExecute(request);
+                System.Action result = () => service.UnsafeExecute(request);
 
-                result.IsLeft.Should().BeTrue();
-                result.IfLeft(error => error.Should().Be(Error.DriverNotFound));
+                result.Should().Throw<DriverNotFoundException>();
             }
 
-            //This test breaks with NullReferencesException
-            //[Test]
             public void DoesNotChargeTrafficTicketWhenTrafficTicketNotFound()
             {
                 var request = BuildRequest();
@@ -68,10 +64,9 @@ namespace Tests.Domain.TrafficTickets
                     .Setup(x => x.UnsafeSearchBy(It.IsAny<string>()))
                     .Returns((TrafficTicket) null);
 
-                var result = service.UnsafeExecute(request);
+                System.Action result = () => service.UnsafeExecute(request);
 
-                result.IsLeft.Should().BeTrue();
-                result.IfLeft(error => error.Should().Be(Error.TrafficTicketNotFound));
+                result.Should().Throw<TrafficTicketNotFound>();
             }
         }
 
