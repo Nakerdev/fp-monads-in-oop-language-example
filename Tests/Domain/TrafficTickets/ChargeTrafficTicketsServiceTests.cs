@@ -39,6 +39,10 @@ namespace Tests.Domain.TrafficTickets
                 var trafficTicket = service.UnsafeExecute(request);
 
                 trafficTicket.IsPaid.Should().BeTrue();
+                trafficTicketsRepository
+                    .Verify(x => x.Update(It.Is<TrafficTicket>(y =>
+                        y.IsPaid
+                        && y.ChargeId.IsSome)), Times.Once);
             }
 
             [Test]
@@ -87,6 +91,10 @@ namespace Tests.Domain.TrafficTickets
 
                 result.IsRight.Should().BeTrue();
                 result.IfRight(trafficTicket => trafficTicket.IsPaid.Should().BeTrue());
+                trafficTicketsRepository
+                    .Verify(x => x.Update(It.Is<TrafficTicket>(y =>
+                        y.IsPaid
+                        && y.ChargeId.IsSome)), Times.Once);
             }
 
             [Test]

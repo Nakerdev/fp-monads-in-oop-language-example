@@ -36,6 +36,7 @@ namespace Examples.Domain.TrafficTickets
             var chargeId = "chargeId";
 
             trafficTicket.MarkAsPaid(chargeId);
+            trafficTicketRepository.Update(trafficTicket);
             return trafficTicket;
         }
 
