@@ -78,6 +78,7 @@ namespace Examples.Domain.TrafficTickets
                 string chargeId)
             {
                 trafficTicket.MarkAsPaid(chargeId);
+                trafficTicketRepository.Update(trafficTicket);
                 return Prelude.unit;
             }
         }
